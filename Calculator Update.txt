@@ -1,0 +1,453 @@
+import javax.swing.*;
+/*import javax.swing.JOptionPane;*/
+import java.awt.*;
+import java.awt.event.*;
+
+public class Calculator extends JFrame {
+
+  
+   private JTextArea resultTA;
+   private JButton sevenB, eightB, nineB, fourB;
+   private JButton fiveB, sixB, oneB, twoB, threeB;
+   private JButton zeroB, clearB, exitB;
+   private JButton plusB, equalB,minusB,multiB,divideB;
+   
+   private sevenBHandler sevenBh;
+   private eightBHandler eightBh;
+   private nineBHandler nineBh;
+   private fourBHandler fourBh;
+   private fiveBHandler fiveBh;
+   private sixBHandler sixBh;
+   private oneBHandler oneBh;
+   private twoBHandler twoBh;
+   private threeBHandler threeBh;
+   private zeroBHandler zeroBh;
+   private plusBHandler plusBh;
+   private equalBHandler equalBh;
+   private MinusBHandler minusBh;
+   private multiBHandler multiBh;
+   private divideBHandler divideBh;
+   
+   private ClearButtonHandler clbHandler;
+
+   private ExitButtonHandler ebHandler;
+   
+   int Number1;
+   int Number2;
+   int Number3;
+   
+   char lastCharacter;
+   
+   private static final int WIDTH = 800;
+   private static final int HEIGHT = 600;
+   
+   /*public static void infoBox(String infoMessage, String titleBar) {
+	   
+   }
+   */
+  
+   
+   public Calculator() {   
+		  
+	 // Make 1 Text Area
+	
+	 resultTA = new JTextArea(10,1);
+	 
+	 
+	 JLabel iconLabel = 
+		     new JLabel(new ImageIcon("res/BBpicture.jpg"));
+	  
+	 		iconLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 24));
+	 
+	 
+  
+	 // Create 7 Button
+	 sevenB = new JButton("7");
+	 sevenBh = new sevenBHandler();
+	 sevenB.addActionListener(sevenBh);
+	 
+	 // Create 8 Button
+	 eightB = new JButton("8");
+	 eightBh = new eightBHandler();
+	 eightB.addActionListener(eightBh);
+
+	 // Create 9 Button
+	 nineB = new JButton("9");
+	 nineBh = new nineBHandler();
+	 nineB.addActionListener(nineBh);
+	 
+	 // Create 4 Button
+	 fourB = new JButton("4");
+	 fourBh = new fourBHandler();
+	 fourB.addActionListener(fourBh);
+	 
+	 // Create 5 Button
+	 fiveB = new JButton("5");
+	 fiveBh = new fiveBHandler();
+	 fiveB.addActionListener(fiveBh);
+	 
+	 // Create 6 Button
+	 sixB = new JButton("6");
+	 sixBh = new sixBHandler();
+	 sixB.addActionListener(sixBh);
+	 
+	 // Create 1 Button
+	 oneB = new JButton("1");
+	 oneBh = new oneBHandler();
+	 oneB.addActionListener(oneBh);
+	 
+	 // Create 2 Button
+	 twoB = new JButton("2");
+	 twoBh = new twoBHandler();
+	 twoB.addActionListener(twoBh);
+	 
+	 // Create 3 Button
+	 threeB = new JButton("3");
+	 threeBh = new threeBHandler();
+	 threeB.addActionListener(threeBh);
+	 
+	 // Create 0 Button
+	 zeroB = new JButton("0");
+	 zeroBh = new zeroBHandler();
+	 zeroB.addActionListener(zeroBh);
+	 
+	 // Create + Button
+	 plusB = new JButton("+");
+	 plusBh = new plusBHandler();
+	 plusB.addActionListener(plusBh);
+	 
+	 //create - button
+	 minusB = new JButton("-");
+	 minusBh = new MinusBHandler();
+	 minusB.addActionListener(minusBh);
+	 
+	 //create * button
+	 multiB = new JButton("*");
+	 multiBh = new multiBHandler();
+	 multiB.addActionListener(multiBh);
+	
+	 //create / button
+	 divideB = new JButton("/");
+	 divideBh = new divideBHandler();
+	 divideB.addActionListener(divideBh);
+	 
+	 // Create = Button
+	 equalB = new JButton("=");
+	 equalBh = new equalBHandler();
+	 equalB.addActionListener(equalBh);
+	 
+	 
+	 // Create Clear Button
+	 clearB = new JButton("Clear");
+	 clbHandler = new ClearButtonHandler();
+	 clearB.addActionListener(clbHandler);
+
+	
+	 // Create Exit Button
+	 exitB = new JButton("Exit");
+	 ebHandler = new ExitButtonHandler();
+	 exitB.addActionListener(ebHandler);
+	
+	 // Set the title of the Window
+	 setTitle("A Simple Calculator");
+	
+	 // Get the container
+	 Container pane = getContentPane();    
+	 
+	 // Set the layout
+	 pane.setLayout(new GridLayout(4,3));
+	
+     // Place the components in the pane
+	 pane.add(oneB);
+	 pane.add(twoB);
+	 pane.add(threeB);
+	 pane.add(fourB);
+	 pane.add(fiveB);
+	 pane.add(sixB);
+	 pane.add(sevenB);
+	 pane.add(eightB);
+	 pane.add(nineB);
+	
+	 
+	 
+	 pane.add(zeroB);
+	 pane.add(plusB);
+	 
+	 pane.add(minusB);
+	 pane.add(multiB);
+	 pane.add(divideB);
+	 pane.add(equalB);
+	 
+    
+	 pane.add(clearB);
+    
+      
+	 pane.add(exitB);
+	   
+	 pane.add(resultTA);
+	 pane.add(iconLabel);
+	 
+	
+	 // Set the size of the window and display it
+	 setSize(WIDTH,HEIGHT);
+	 setVisible(true);
+	 setDefaultCloseOperation(EXIT_ON_CLOSE);
+			
+	}
+	
+       
+	private class ClearButtonHandler implements ActionListener {
+		
+		public void actionPerformed(ActionEvent e) {
+			resultTA.setText("");
+		}
+	}
+	
+      
+	private class sevenBHandler implements ActionListener {
+	 
+	 
+	 public void actionPerformed(ActionEvent e) {
+	   
+	   resultTA.append("7");
+	   
+	 }      
+		
+	}
+	
+	private class eightBHandler implements ActionListener {
+	 
+	 
+	 public void actionPerformed(ActionEvent e) {
+	   
+	   resultTA.append("8");
+	   
+	 }      
+		
+	}
+	
+	private class nineBHandler implements ActionListener {
+	 
+	 
+	 public void actionPerformed(ActionEvent e) {
+	   
+	   resultTA.append("9");
+	   
+	 }      
+		
+	}
+	
+	private class fourBHandler implements ActionListener {
+	 
+	 
+	 public void actionPerformed(ActionEvent e) {
+	   
+	   resultTA.append("4");
+	   
+	 }      
+		
+	}
+	
+	private class fiveBHandler implements ActionListener {
+	 
+	 
+	 public void actionPerformed(ActionEvent e) {
+	   
+	   resultTA.append("5");
+	   
+	 }      
+		
+	}
+    
+	private class sixBHandler implements ActionListener {
+	 
+	 
+	 public void actionPerformed(ActionEvent e) {
+	   
+	   resultTA.append("6");
+	   
+	 }      
+		
+	}
+    
+	private class oneBHandler implements ActionListener {
+	 
+	 
+	 public void actionPerformed(ActionEvent e) {
+	   
+	   resultTA.append("1");
+	   
+	 }      
+		
+	}
+	
+	private class twoBHandler implements ActionListener {
+	 
+	 
+	 public void actionPerformed(ActionEvent e) {
+	   
+	   resultTA.append("2");
+	   
+	 }      
+		
+	}
+	
+	private class threeBHandler implements ActionListener {
+	 
+	 
+	 public void actionPerformed(ActionEvent e) {
+	   
+	   resultTA.append("3");
+	   
+	 }      
+		
+	}
+	
+	private class zeroBHandler implements ActionListener {
+	 
+	 
+	 public void actionPerformed(ActionEvent e) {
+	   
+	   resultTA.append("0");
+	   
+	 }      
+		
+	}
+	
+	private class plusBHandler implements ActionListener {
+		
+	 
+	 public void actionPerformed(ActionEvent e) {
+		 
+	  
+	  try {
+		  
+	  
+	  Number1 = Integer.parseInt(resultTA.getText());
+	  
+	  }
+	  catch(NumberFormatException a) {
+		  JOptionPane.showMessageDialog(new JFrame(),"Error Please Use Numbers");
+	  }  
+	  resultTA.setText("");
+	   lastCharacter = '+';
+	 }      
+		
+	}
+	
+	private class equalBHandler implements ActionListener {
+	 
+	 
+	 public void actionPerformed(ActionEvent e) {
+		 
+		
+	  if (lastCharacter == '+') {
+		   	   
+	   Number2 = Integer.parseInt(resultTA.getText());
+	   
+	   Number3 = Number1 + Number2;
+	   resultTA.setText(Integer.toString(Number3));
+	
+	  }
+	  else if (lastCharacter == '-') {
+		  Number2 = Integer.parseInt(resultTA.getText());
+		   
+		   Number3 = Number1 - Number2;
+		   resultTA.setText(Integer.toString(Number3));
+	  }
+	  else if (lastCharacter == '*') {
+		  Number2 = Integer.parseInt(resultTA.getText());
+		   
+		   Number3 = Number1 * Number2;
+		   resultTA.setText(Integer.toString(Number3));
+	  }
+	  else if (lastCharacter == '/') {
+		  Number2 = Integer.parseInt(resultTA.getText());
+		   
+		   Number3 = Number1 / Number2;
+		   resultTA.setText(Integer.toString(Number3));
+	  }
+	 }      
+		
+	}
+	
+	
+	private class MinusBHandler implements ActionListener{
+		
+		public void actionPerformed(ActionEvent e) {
+			
+			/*Number1 = Integer.parseInt(resultTA.getText());
+			   resultTA.setText("");
+			   lastCharacter = '-';*/
+			try {
+				  
+				  
+				  Number1 = Integer.parseInt(resultTA.getText());
+				  
+				  }
+				  catch(NumberFormatException a) {
+					  JOptionPane.showMessageDialog(new JFrame(),"Error Please Use Numbers");
+				  }  
+				  resultTA.setText("");
+				   lastCharacter = '-';
+				 }      
+	}
+	
+	private class multiBHandler implements ActionListener{
+		
+		public void actionPerformed(ActionEvent e) {
+			/*Number1 = Integer.parseInt(resultTA.getText());
+			   resultTA.setText("");
+			   lastCharacter = '*';*/
+			try {
+				  
+				  
+				  Number1 = Integer.parseInt(resultTA.getText());
+				  
+				  }
+				  catch(NumberFormatException a) {
+					  JOptionPane.showMessageDialog(new JFrame(),"Error Please Use Numbers");
+				  }  
+				  resultTA.setText("");
+				   lastCharacter = '*';
+				 }      	
+				}
+	
+	private class divideBHandler implements ActionListener{
+		
+		public void actionPerformed(ActionEvent e) {
+			/*Number1 = Integer.parseInt(resultTA.getText());
+			   resultTA.setText("");
+			   lastCharacter = '/';*/
+			try {
+				  
+				  
+				  Number1 = Integer.parseInt(resultTA.getText());
+				  
+				  }
+				  catch(NumberFormatException a) {
+					  JOptionPane.showMessageDialog(new JFrame(),"Error Please Use Numbers");
+					  
+				  }  
+				  resultTA.setText("");
+				   lastCharacter = '/';
+				 }      
+				}
+
+	private class ExitButtonHandler implements ActionListener {
+		
+		public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+		}
+	}
+	
+	
+		
+	public static void main(String[] args) {
+		
+		Calculator calcObject = new Calculator();
+		
+	}
+	
+		     
+}
